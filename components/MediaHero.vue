@@ -31,6 +31,12 @@
 </template>
 
 <script setup lang="ts">
+/**
+ * @TODO: make this component reusable
+ * and we will have to send two AJAX calles first to get all popular movies and then get the id of the first one
+ * second is make request with this id to get all detail about this movie and then pass the result to this reusable component
+ *
+ */
 const { data: movies }: any = await useFetch("/api/movies/popular");
 const customizePics = (
   src: string
