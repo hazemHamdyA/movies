@@ -19,9 +19,9 @@
           <StarRate class="w-28" :value="movie.vote_average" />
         </div>
         <li>{{ movie.vote_average.toFixed(1) }}</li>
-        <li>1.5K Reviews</li>
+        <li>{{ formatNumber(movie.vote_count) }}K Reviews</li>
         <li>{{ movie.release_date.slice(0, 4) }}</li>
-        <li>3h 26min</li>
+        <li>3h 26min {{ movie.runtime }}</li>
       </ul>
       <p class="text-gray-300 text-lg">
         {{ movie.overview }}
@@ -36,6 +36,12 @@ const customizePics = (
   src: string
 ): string => `https://image.tmdb.org/t/p/original/${src}
 `;
+
+const formatNumber = (number: number) => {
+  return new Intl.NumberFormat("en-IN", { maximumSignificantDigits: 2 })
+    .format(number)
+    .slice(0, 3);
+};
 </script>
 
 <style scoped lang="scss">
