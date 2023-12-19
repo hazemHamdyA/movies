@@ -7,7 +7,6 @@
     <NuxtImg
       :src="customizePics(movie.backdrop_path)"
       :alt="movie.title + ' cover'"
-      format="webp"
       class="img -z-1 object-cover"
     />
     <div class="continer">
@@ -31,19 +30,20 @@
 </template>
 
 <script setup lang="ts">
+import { getPopular } from "~/composables/tmdb";
 /**
  * @TODO: make this component reusable
  * and we will have to send two AJAX calles first to get all popular movies and then get the id of the first one
- * second is make request with this id to get all detail about this movie and then pass the result to this reusable component
- *
+ * second is make request with this id to get all details about this movie and then pass the result to this reusable component
  */
-const { data: movies }: any = await useFetch("/api/movies/popular");
+const movies: any = await getPopular();
+console.log(movies);
 const customizePics = (
   src: string
 ): string => `https://image.tmdb.org/t/p/original/${src}
 `;
 
-const formatNumber = (number: number) => {
+const formatNumber = (number: number): string => {
   return new Intl.NumberFormat("en-IN", { maximumSignificantDigits: 2 })
     .format(number)
     .slice(0, 3);

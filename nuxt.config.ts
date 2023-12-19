@@ -1,9 +1,26 @@
 export default defineNuxtConfig({
+  devtools: { enabled: true },
   css: ["~/assets/css/tailwind.css"],
-  modules: ["@nuxtjs/tailwindcss", "shadcn-nuxt", "@unocss/nuxt", "@nuxt/image"],
+  modules: [
+    "@nuxtjs/tailwindcss",
+    "shadcn-nuxt",
+    "@unocss/nuxt",
+    "@nuxt/image",
+  ],
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",
   },
-  devtools: { enabled: true },
+  image: {
+    provider: "ipx",
+    presets: {
+      default: {
+        modifiers: {
+          format: "webp",
+          loading: "lazy",
+          quality: "100",
+        },
+      },
+    },
+  },
 });
