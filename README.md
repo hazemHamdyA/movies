@@ -1,13 +1,3 @@
-## popular movies https://api.themoviedb.org/3/movie/popular?api_key=<key>&language=en-US
-
-## movie details https://api.themoviedb.org/3/movie/<movie_id>?api_key=<key>&language=en-US
-
-## search https://api.themoviedb.org/3/search/<keyword>?page=1
-
-## Nuxt 3 Minimal Starter
-
-Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.
-
 ## Setup
 
 Make sure to install the dependencies:
@@ -77,5 +67,3 @@ yarn preview
 # bun
 bun run preview
 ```
-
-Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.

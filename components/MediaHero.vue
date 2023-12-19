@@ -1,9 +1,5 @@
 <template>
-  <div
-    class="relative w-full h-full aspect-ratio-3/2"
-    v-for="movie in [details]"
-    :key="movie"
-  >
+  <div class="relative w-full h-full" v-for="movie in [details]" :key="movie">
     <NuxtImg
       :src="customizePics(movie.backdrop_path)"
       :alt="movie.title + ' cover'"
@@ -25,33 +21,20 @@
       <p class="text-gray-300 text-lg">
         {{ movie.overview }}
       </p>
+      <div>
+        <!-- implement vidoe model -->
+        <Button variant="ghost" class="font-medium">
+          <Icon name="lucide:play" mr-2 />
+          Watch Trailer
+        </Button>
+      </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { formatTime } from "~/composables/tmdb";
 defineProps(["details"]);
-/**
- * @TODO: make this component reusable
- * and we will have to send two AJAX calles first to get all popular movies and then get the id of the first one
- * second is make request with this id to get all details about this movie and then pass the result to this reusable component
- */
-const customizePics = (
-  src: string
-): string => `https://image.tmdb.org/t/p/original/${src}
-`;
-
-const formatNumber = (number: number): string => {
-  return new Intl.NumberFormat("en-IN", { maximumSignificantDigits: 2 })
-    .format(number)
-    .slice(0, 3);
-};
-const formatTime = function (time: string) {
-  const hours = Math.floor(+time / 60);
-  const mins = Math.floor(+time % 60);
-  // 3h 26min
-  return `${hours}h ${mins}min`;
-};
 </script>
 
 <style scoped lang="scss">
