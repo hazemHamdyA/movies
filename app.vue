@@ -1,4 +1,9 @@
-<script></script>
+<script>
+/**
+ * @TODO: 0) create the one move page
+ *        1) implement video triler and make go to the spacefic page
+ */
+</script>
 <template>
   <NuxtLoadingIndicator />
   <div>

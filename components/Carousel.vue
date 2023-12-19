@@ -4,7 +4,7 @@ defineProps(["movies", "head"]);
 </script>
 
 <template>
-  <section>
+  <section pl-18>
     <div class="flex justify-between p-8 items-center">
       <h2 class="text-2xl">{{ head }}</h2>
       <nuxt-link class="n-link text-lg" to="/">Explore more</nuxt-link>
