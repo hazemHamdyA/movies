@@ -1,7 +1,7 @@
 <template>
   <div
     class="relative w-full h-full aspect-ratio-3/2"
-    v-for="movie in [movies.results[0]]"
+    v-for="movie in [details]"
     :key="movie"
   >
     <NuxtImg
@@ -20,7 +20,7 @@
         <li>{{ movie.vote_average.toFixed(1) }}</li>
         <li>{{ formatNumber(movie.vote_count) }}K Reviews</li>
         <li>{{ movie.release_date.slice(0, 4) }}</li>
-        <li>3h 26min {{ movie.runtime }}</li>
+        <li>{{ formatTime(movie.runtime) }}</li>
       </ul>
       <p class="text-gray-300 text-lg">
         {{ movie.overview }}
@@ -30,14 +30,12 @@
 </template>
 
 <script setup lang="ts">
-import { getPopular } from "~/composables/tmdb";
+defineProps(["details"]);
 /**
  * @TODO: make this component reusable
  * and we will have to send two AJAX calles first to get all popular movies and then get the id of the first one
  * second is make request with this id to get all details about this movie and then pass the result to this reusable component
  */
-const movies: any = await getPopular();
-console.log(movies);
 const customizePics = (
   src: string
 ): string => `https://image.tmdb.org/t/p/original/${src}
@@ -47,6 +45,12 @@ const formatNumber = (number: number): string => {
   return new Intl.NumberFormat("en-IN", { maximumSignificantDigits: 2 })
     .format(number)
     .slice(0, 3);
+};
+const formatTime = function (time: string) {
+  const hours = Math.floor(+time / 60);
+  const mins = Math.floor(+time % 60);
+  // 3h 26min
+  return `${hours}h ${mins}min`;
 };
 </script>
 

@@ -1,7 +1,7 @@
 async function getPopular() {
-  return await $fetch(`/api/test/movie/popular`);
+  return await $fetch(`/api/movie/popular`);
 }
-async function name(id: string) {
-  // return await
+async function getModvieById(id: string) {
+  return await $fetch(`/api/movie/${id}`);
 }
-export { getPopular };
+export { getPopular, getModvieById };
