@@ -39,14 +39,17 @@ defineProps(["details"]);
 
 <style scoped lang="scss">
 .img {
-  position: absolute;
   width: 64%;
-  right: 0;
-  top: 0;
+  margin-left: auto;
   filter: contrast(110%);
+  height: 34rem;
 }
 
 .continer {
+  position: absolute;
+  left: 0;
+  top: 0;
+
   padding-left: 10rem;
   padding-top: 10rem;
   display: flex;

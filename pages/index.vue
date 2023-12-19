@@ -1,5 +1,5 @@
 <template>
-  <div class="space-y-40">
+  <div>
     <MediaHero :details="firstMovieDetails" />
     <div>
       <Carousel head="Popular Movies" :movies="allPopularMovies.results" />

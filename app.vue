@@ -1,6 +1,10 @@
 <script></script>
 <template>
-  <NuxtPage />
+  <NuxtLoadingIndicator />
+  <div>
+    <TheNavBar />
+    <NuxtPage />
+  </div>
 </template>
 <style lang="scss">
 @use "~/assets/css/tailwind.css";

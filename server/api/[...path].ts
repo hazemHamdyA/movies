@@ -2,7 +2,6 @@ const BASE_URL = "https://api.themoviedb.org/3/";
 
 export default defineEventHandler(async (event) => {
   const qury = getQuery(event);
-  console.log(qury);
   const responce = await $fetch(event.context.params!.path, {
     baseURL: BASE_URL,
     params: {
