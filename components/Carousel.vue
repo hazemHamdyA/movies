@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { customizePics, formatNumber } from "~/composables/tmdb";
-defineProps(["movies", "head"]);
+defineProps(["media", "head"]);
 </script>
 
 <template>
@@ -9,15 +9,15 @@ defineProps(["movies", "head"]);
       <h2 class="text-2xl">{{ head }}</h2>
       <nuxt-link class="n-link text-lg" to="/">Explore more</nuxt-link>
     </div>
-    <ScrollArea class="border rounded-md w-full p-4 whitespace-nowrap">
-      <div class="flex p-4 space-x-4 w-max">
-        <div class="space-y-2" v-for="movie in movies" :key="movie.id">
+    <ScrollArea class="border rounded-md p-4">
+      <div class="flex p-4 space-x-4">
+        <div class="space-y-2 w-64" v-for="movie in media" :key="movie.id">
           <figure class="shrink-0">
             <div class="overflow-hidden">
               <NuxtImg
                 :src="customizePics(movie.poster_path)"
                 :alt="`Photo by ${movie.title}`"
-                class="aspect-[3/4] w-60 object-cover"
+                class="aspect-[3/4] object-cover"
               />
             </div>
           </figure>
@@ -37,6 +37,9 @@ defineProps(["movies", "head"]);
   </section>
 </template>
 <style scoped lang="scss">
+// h3 {
+//   width: 2rem;
+// }
 figure {
   border: 4px solid rgb(46, 46, 46);
   transition: all 0.4s ease-in-out;

@@ -1,3 +1,4 @@
+import type { MediaType } from "~/types";
 const customizePics = (
   src: string
 ): string => `https://image.tmdb.org/t/p/original/${src}
@@ -15,12 +16,21 @@ const formatTime = function (time: string): string {
   return `${hours}h ${mins}min`;
 };
 
-async function getPopular(type: string) {
+async function getPopular(type: MediaType) {
   return await $fetch(`/api/${type}/popular`);
 }
+async function getTopRated(type: MediaType) {
+  return await $fetch(`/api/${type}/top_rated`);
+}
+async function getUpcoming(type: MediaType) {
+  return await $fetch(`/api/${type}/upcoming`);
+}
+async function getNowPlaying(type: MediaType) {
+  return await $fetch(`/api/${type}/now_playing`);
+}
 
-async function getMediaById(type: string, id: string) {
-  return await $fetch(`/api/movie/${id}`, {
+async function getMediaById(type: MediaType, id: string) {
+  return await $fetch(`/api/${type}/${id}`, {
     params: {
       // get extra data with request
       append_to_response:
@@ -29,4 +39,13 @@ async function getMediaById(type: string, id: string) {
   });
 }
 
-export { getPopular, getMediaById, customizePics, formatNumber, formatTime };
+export {
+  getPopular,
+  getMediaById,
+  customizePics,
+  formatNumber,
+  formatTime,
+  getTopRated,
+  getUpcoming,
+  getNowPlaying,
+};
