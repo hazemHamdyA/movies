@@ -1,25 +1,25 @@
 <template>
-  <div class="relative w-full h-full" v-for="movie in [details]" :key="movie">
+  <div class="relative w-full h-full" v-for="media in [details]" :key="media">
     <NuxtImg
-      :src="customizePics(movie.backdrop_path)"
-      :alt="movie.title + ' cover'"
+      :src="customizePics(media.backdrop_path)"
+      :alt="media.title + ' cover'"
       class="img -z-1 object-cover"
     />
     <div class="continer">
       <h1 class="font-semibold text-5xl">
-        {{ movie.title }}
+        {{ media.title ?? media.name }}
       </h1>
       <ul class="flex items-center gap-8">
         <div>
-          <StarRate class="w-28" :value="movie.vote_average" />
+          <StarRate class="w-28" :value="media.vote_average" />
         </div>
-        <li>{{ movie.vote_average.toFixed(1) }}</li>
-        <li>{{ formatNumber(movie.vote_count) }}K Reviews</li>
-        <li>{{ movie.release_date.slice(0, 4) }}</li>
-        <li>{{ formatTime(movie.runtime) }}</li>
+        <li>{{ media.vote_average.toFixed(1) }}</li>
+        <li>{{ formatNumber(media.vote_count) }}K Reviews</li>
+        <li v-if="media.release_date">{{ media.release_date?.slice(0, 4) }}</li>
+        <li v-if="media.runtime">{{ formatTime(media.runtime) }}</li>
       </ul>
       <p class="text-gray-300 text-lg">
-        {{ movie.overview }}
+        {{ media.overview }}
       </p>
       <div>
         <!-- implement vidoe model -->
@@ -33,7 +33,6 @@
 </template>
 
 <script setup lang="ts">
-import { formatTime } from "~/composables/tmdb";
 defineProps(["details"]);
 </script>
 
@@ -54,18 +53,12 @@ defineProps(["details"]);
   padding-top: 10rem;
   display: flex;
   flex-direction: column;
+  border: transparent;
   gap: 1rem;
   width: 60%;
   height: 100%;
   background: transparent
-    linear-gradient(
-      to left,
-      #0000001c,
-      #000000be,
-      #00000085,
-      #05050500,
-      #00000075
-    );
+    linear-gradient(to left, #ffffff00, #000000c7, #000000, #000000, #080808);
 
   & li {
     color: gray;

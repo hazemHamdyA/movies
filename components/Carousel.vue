@@ -4,7 +4,7 @@ defineProps(["media", "head"]);
 </script>
 
 <template>
-  <section pl-18>
+  <section pl-18 bg-gray:5>
     <div class="flex justify-between p-8 items-center">
       <h2 class="text-2xl">{{ head }}</h2>
       <nuxt-link class="n-link text-lg" to="/">Explore more</nuxt-link>

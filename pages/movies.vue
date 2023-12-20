@@ -25,8 +25,10 @@ import {
   getUpcoming,
   getNowPlaying,
 } from "~/composables/tmdb";
+
+// for typescript as in template when try to access to promise ts wil complaine so we have to
+// make these promise reolved first and then access to it
 const asyncWrapper = defineComponent({
-  name: "AsyncWrapper",
   async setup(_, ctx) {
     const topRatedMovies = await getTopRated("movie");
     const upComingMovies = await getUpcoming("movie");

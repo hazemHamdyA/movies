@@ -10,10 +10,11 @@ const formatNumber = (number: number): string => {
     .slice(0, 3);
 };
 const formatTime = function (time: string): string {
-  const hours = Math.floor(+time / 60);
-  const mins = Math.floor(+time % 60);
+  const hours = Math.floor(+time / 60) || "";
+  const mins = Math.floor(+time % 60) || "";
   // 3h 26min
-  return `${hours}h ${mins}min`;
+  if (hours || mins) return `${hours}h ${mins}min`;
+  else return "";
 };
 
 async function getPopular(type: MediaType) {
@@ -27,6 +28,9 @@ async function getUpcoming(type: MediaType) {
 }
 async function getNowPlaying(type: MediaType) {
   return await $fetch(`/api/${type}/now_playing`);
+}
+async function getAiringToday(type: MediaType) {
+  return await $fetch(`/api/${type}/airing_today`);
 }
 
 async function getMediaById(type: MediaType, id: string) {
@@ -48,4 +52,5 @@ export {
   getTopRated,
   getUpcoming,
   getNowPlaying,
+  getAiringToday,
 };
