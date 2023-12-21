@@ -1,4 +1,5 @@
 import type { MediaType } from "~/types";
+
 const customizePics = (
   src: string
 ): string => `https://image.tmdb.org/t/p/original/${src}
@@ -32,6 +33,9 @@ async function getNowPlaying(type: MediaType) {
 async function getAiringToday(type: MediaType) {
   return await $fetch(`/api/${type}/airing_today`);
 }
+async function getSearchMedia(keyword: string, page = 1) {
+  return await $fetch(`/api/search/multi?query=${keyword}&page=${page}`);
+}
 
 async function getMediaById(type: MediaType, id: string) {
   return await $fetch(`/api/${type}/${id}`, {
@@ -53,4 +57,5 @@ export {
   getUpcoming,
   getNowPlaying,
   getAiringToday,
+  getSearchMedia,
 };

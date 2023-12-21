@@ -7,6 +7,7 @@ export default defineNuxtConfig({
     "@unocss/nuxt",
     "@nuxt/image",
     "nuxt-icon",
+    "@vueuse/nuxt",
   ],
   shadcn: {
     prefix: "",
