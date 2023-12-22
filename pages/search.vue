@@ -13,37 +13,62 @@
     </label>
     <div pl-12 pt-4>
       <!-- <h2>Type something to search...</h2> -->
-      <MediaGrid :medias="medias" />
+      <div class="continer">
+        <MediaGrid :medias="searchedMedia" />
+      </div>
+      <div v-if="isEnd" ref="el"></div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-/**
- *
- * @TODO: implement fuctnality when we type new letter clear the old array and replase it with the new one
- */
+import { useInfiniteScroll } from "@vueuse/core";
 const searchInput = ref("");
-let searchedMedia = reactive([]);
-const medias = computed(() => searchedMedia);
+const isEnd = ref(false);
+const count = ref(2);
+/**
+ * @NOTE: here we have to crete array 'object' with ref instead of reactive to can reset it
+ */
+const el = ref<HTMLElement | null>(null);
+const searchedMedia: any = ref([]);
 
-const debouncedFn = useDebounceFn(() => console.log("clicked"), 1000);
 const search = async () => {
-  const data = await getSearchMedia(searchInput.value);
-  // @ts-ignore
-  searchedMedia.push(...data.results);
-  console.log("sent");
+  // reset array
+  if (searchedMedia.value.length) {
+    searchedMedia.value = [];
+  }
+  const data: any = await getSearchMedia(searchInput.value);
+  searchedMedia.value.push(...data.results);
+  isEnd.value = true;
 };
-// @ts-ignore
+const debouncedFn = useDebounceFn(search, 200);
+
+useInfiniteScroll(
+  el,
+  async () => {
+    const data: any = await getSearchMedia(searchInput.value, count.value);
+    const totalPages = data.total_pages;
+    if (count.value <= totalPages) {
+      count.value++;
+    }
+
+    searchedMedia.value.push(...data.results);
+  },
+  { distance: 20 }
+);
+
 watch(
   () => searchInput.value,
-  () => {
-    search();
-  }
+  () => debouncedFn()
 );
 </script>
 
 <style scoped lang="scss">
+.continer {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
+}
 label {
   position: relative;
   color: black;
