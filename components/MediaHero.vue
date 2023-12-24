@@ -18,7 +18,7 @@
         <li v-if="media.release_date">{{ media.release_date?.slice(0, 4) }}</li>
         <li v-if="media.runtime">{{ formatTime(media.runtime) }}</li>
       </ul>
-      <p class="text-gray-300 text-lg">
+      <p class="text-gray-300 text-lg" line-clamp-3 md:line-clamp-5>
         {{ media.overview }}
       </p>
       <div>
@@ -47,7 +47,7 @@ defineProps(["details"]);
 .continer {
   position: absolute;
   left: 0;
-  top: 0;
+  top: -2rem;
 
   padding-left: 10rem;
   padding-top: 10rem;
@@ -56,7 +56,7 @@ defineProps(["details"]);
   border: transparent;
   gap: 1rem;
   width: 60%;
-  height: 100%;
+  height: 106%;
   background: transparent
     linear-gradient(to left, #ffffff00, #000000c7, #000000, #000000, #080808);
 

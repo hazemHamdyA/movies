@@ -1,0 +1,89 @@
+<template>
+  <div>
+    <MediaHero :details="firstMediaDetails" />
+    <div>
+      <asyncWrapper
+        v-slot="{
+          topRatedMedia,
+          upComingMovies,
+          nowPlayingMovies,
+          airingToday,
+        }"
+      >
+        <Carousel
+          :media="allPopularMedia?.results"
+          :head="chosenMedia ? 'Popular Movies' : 'Popular TV Shows'"
+          :type="chosenMedia ? 'movie' : 'tv'"
+        />
+        <Carousel
+          :media="topRatedMedia?.results"
+          :head="`Top Rated ${chosenMedia ? 'Movies' : 'TV Shows'}`"
+          :type="chosenMedia ? 'movie' : 'tv'"
+        />
+        <div v-if="chosenMedia">
+          <Carousel :media="upComingMovies?.results" head="Upcoming Movies" />
+          <Carousel
+            :media="nowPlayingMovies?.results"
+            head="Now Playing Movies"
+          />
+        </div>
+        <div v-else>
+          <Carousel
+            :media="airingToday?.results"
+            head="TV Shows Airing Today"
+            type="tv"
+          />
+        </div>
+      </asyncWrapper>
+    </div>
+  </div>
+</template>
+
+<script setup lang="ts">
+import {
+  getPopular,
+  getMediaById,
+  getTopRated,
+  getUpcoming,
+  getNowPlaying,
+  getAiringToday,
+} from "~/composables/tmdb";
+import type { MediaType } from "~/types";
+
+const route = useRoute();
+
+// for typescript as in template when try to access to promise ts wil complaine so we have to
+// make these promise reolved first and then access to it
+const asyncWrapper = defineComponent({
+  async setup(_, ctx) {
+    const topRatedMedia = await getTopRated(route.params.type as MediaType);
+
+    let airingToday: any;
+    let upComingMovies: any;
+    let nowPlayingMovies: any;
+
+    if (route.params.type === "movie") {
+      upComingMovies = await getUpcoming(route.params.type as MediaType);
+      nowPlayingMovies = await getNowPlaying(route.params.type as MediaType);
+    } else if (route.params.type === "tv") {
+      airingToday = await getAiringToday("tv");
+    }
+    return () =>
+      ctx.slots?.default?.({
+        topRatedMedia,
+        airingToday,
+        upComingMovies,
+        nowPlayingMovies,
+      });
+  },
+});
+const allPopularMedia: any = await getPopular(route.params.type as MediaType);
+const firstMeidaID: string = allPopularMedia.results[0].id;
+const firstMediaDetails = await getMediaById(
+  route.params.type as MediaType,
+  firstMeidaID
+);
+const chosenMedia = computed(() => route.params.type === "movie");
+</script>
+
+<style scoped></style>

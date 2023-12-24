@@ -1,6 +1,6 @@
 <template>
   <nav
-    flex="~ row lg:col"
+    flex="~ col"
     items-center
     pt-28
     gap-30

@@ -1,9 +1,10 @@
 <template>
   <div>
     <MediaHero :details="firstMovieDetails" />
+    <!-- prettier-ignore-->
     <div>
-      <Carousel head="Popular Movies" :media="allPopularMovies.results" />
-      <Carousel head="Popular TV Shows" :media="allPopularTVs.results" />
+      <Carousel head="Popular Movies" :media="allPopularMovies.results" type="movie" />
+      <Carousel head="Popular TV Shows" :media="allPopularTVs.results" type="tv" />
     </div>
   </div>
 </template>

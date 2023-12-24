@@ -10,6 +10,7 @@ const formatNumber = (number: number): string => {
     .format(number)
     .slice(0, 3);
 };
+
 const formatTime = function (time: string): string {
   const hours = Math.floor(+time / 60) || "";
   const mins = Math.floor(+time % 60) || "";
@@ -18,21 +19,39 @@ const formatTime = function (time: string): string {
   else return "";
 };
 
+const formatCurrency = (num: number) => {
+  return new Intl.NumberFormat("en", {
+    style: "currency",
+    currency: "USD",
+  }).format(num);
+};
+
+const formaDate = (date: Date) => {
+  if (!date) return date;
+  const oldDate = new Date(date);
+  return new Intl.DateTimeFormat("en-US").format(oldDate);
+};
+
 async function getPopular(type: MediaType) {
   return await $fetch(`/api/${type}/popular`);
 }
+
 async function getTopRated(type: MediaType) {
   return await $fetch(`/api/${type}/top_rated`);
 }
+
 async function getUpcoming(type: MediaType) {
   return await $fetch(`/api/${type}/upcoming`);
 }
+
 async function getNowPlaying(type: MediaType) {
   return await $fetch(`/api/${type}/now_playing`);
 }
+
 async function getAiringToday(type: MediaType) {
   return await $fetch(`/api/${type}/airing_today`);
 }
+
 async function getSearchMedia(keyword: string, page = 1) {
   return await $fetch(`/api/search/multi?query=${keyword}&page=${page}`);
 }
@@ -58,4 +77,6 @@ export {
   getNowPlaying,
   getAiringToday,
   getSearchMedia,
+  formatCurrency,
+  formaDate,
 };

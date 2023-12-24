@@ -7,7 +7,7 @@
 <template>
   <NuxtLoadingIndicator />
   <div>
-    <TheNavBar />
+    <TheSideBar />
     <NuxtPage />
   </div>
 </template>

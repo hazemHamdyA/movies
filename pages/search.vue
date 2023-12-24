@@ -12,11 +12,17 @@
       />
     </label>
     <div pl-12 pt-4>
-      <!-- <h2>Type something to search...</h2> -->
+      <h2
+        v-if="searchedMedia.length === 0"
+        class="text-3xl text-center pt-10"
+        font-base
+      >
+        Type something to search...
+      </h2>
       <div class="continer">
         <MediaGrid :medias="searchedMedia" />
       </div>
-      <div v-if="isEnd" ref="el"></div>
+      <div v-if="searchedMedia.length !== 0" ref="el" class="py-10" />
     </div>
   </div>
 </template>
@@ -25,7 +31,7 @@
 import { useInfiniteScroll } from "@vueuse/core";
 const searchInput = ref("");
 const isEnd = ref(false);
-const count = ref(2);
+let page = 1;
 /**
  * @NOTE: here we have to crete array 'object' with ref instead of reactive to can reset it
  */
@@ -46,20 +52,21 @@ const debouncedFn = useDebounceFn(search, 200);
 useInfiniteScroll(
   el,
   async () => {
-    const data: any = await getSearchMedia(searchInput.value, count.value);
+    const data: any = await getSearchMedia(searchInput.value, page);
     const totalPages = data.total_pages;
-    if (count.value <= totalPages) {
-      count.value++;
+    if (page <= totalPages) {
+      page++;
     }
-
     searchedMedia.value.push(...data.results);
   },
-  { distance: 20 }
+  { distance: -50 }
 );
 
 watch(
   () => searchInput.value,
-  () => debouncedFn()
+  () => {
+    debouncedFn();
+  }
 );
 </script>
 
