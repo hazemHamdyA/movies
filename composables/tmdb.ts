@@ -20,6 +20,7 @@ const formatTime = function (time: string): string {
 };
 
 const formatCurrency = (num: number) => {
+  if (!num) return "N/A";
   return new Intl.NumberFormat("en", {
     style: "currency",
     currency: "USD",
@@ -59,9 +60,27 @@ async function getSearchMedia(keyword: string, page = 1) {
 async function getMediaById(type: MediaType, id: string) {
   return await $fetch(`/api/${type}/${id}`, {
     params: {
-      // get extra data with request
+      // get extra data along with request
       append_to_response:
         "videos,credits,images,external_ids,release_dates,combined_credits",
+    },
+  });
+}
+
+async function getRecommendations({
+  type,
+  id,
+}: {
+  type: MediaType;
+  id: string;
+}) {
+  return await $fetch(`/api/${type}/${id}/recommendations`);
+}
+
+async function fetchTMDB(params: { type: string; query: string }, page = 1) {
+  return await $fetch(`/api/${params.type}/${params.query}`, {
+    params: {
+      page,
     },
   });
 }
@@ -79,4 +98,6 @@ export {
   getSearchMedia,
   formatCurrency,
   formaDate,
+  getRecommendations,
+  fetchTMDB,
 };

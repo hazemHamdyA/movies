@@ -1,5 +1,7 @@
 <script setup lang="ts">
 defineProps(["videos"]);
+
+const modalOpen = ref(false);
 </script>
 
 <template>
@@ -7,34 +9,34 @@ defineProps(["videos"]);
     <div
       v-for="vidoe in videos"
       :key="vidoe.id"
-      cursor-pointer
       relative
       class="item"
+      @click="modalOpen = true"
     >
-      <Dialog>
-        <div>
-          <DialogTrigger>
-            <NuxtImg
-              class="w-90 h-50"
-              :src="`https://img.youtube.com/vi/${vidoe.key}/maxresdefault.jpg`"
-              :alt="`${vidoe.name} picture`"
-            />
-          </DialogTrigger>
-        </div>
-        <h4>{{ vidoe.name }}</h4>
-        <p>{{ vidoe.type }}</p>
-        <Icon name="i-ph-play" class="icon" />
-        <DialogContent class="w-fit">
+      <AppModal>
+        <template v-slot:trigger>
+          <NuxtImg
+            class="w-90 h-50"
+            :src="`https://img.youtube.com/vi/${vidoe.key}/maxresdefault.jpg`"
+            :alt="`${vidoe.name} picture`"
+          />
+          <Icon name="i-ph-play" class="icon" />
+        </template>
+        <template #default>
           <iframe
-            class="w-150 h-90"
-            :src="`https://www.youtube.com/embed/${vidoe.key}`"
-            title="Aquaman and the Lost Kingdom | Now Playing"
+            width="900"
+            height="480"
+            :src="'https://www.youtube.com/embed/' + vidoe.key"
+            :title="vidoe.name + '|' + vidoe.type"
+            frameborder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             allowfullscreen
-            name="hi"
           ></iframe>
-        </DialogContent>
-      </Dialog>
+        </template>
+      </AppModal>
+
+      <h4>{{ vidoe.name }}</h4>
+      <p>{{ vidoe.type }}</p>
     </div>
   </div>
 </template>
@@ -53,10 +55,12 @@ defineProps(["videos"]);
   }
   .icon {
     position: absolute;
-    top: 40%;
+    top: 30%;
     right: 50%;
     font-size: xx-large;
     color: gray;
+
+    cursor: pointer;
   }
 
   [data-state="open"] {

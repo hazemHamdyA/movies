@@ -33,7 +33,7 @@ const searchInput = ref("");
 const isEnd = ref(false);
 let page = 1;
 /**
- * @NOTE: here we have to crete array 'object' with ref instead of reactive to can reset it
+ * @NOTE: here we have to create array 'object' with ref instead of reactive to can reset it
  */
 const el = ref<HTMLElement | null>(null);
 const searchedMedia: any = ref([]);
@@ -49,18 +49,14 @@ const search = async () => {
 };
 const debouncedFn = useDebounceFn(search, 200);
 
-useInfiniteScroll(
-  el,
-  async () => {
-    const data: any = await getSearchMedia(searchInput.value, page);
-    const totalPages = data.total_pages;
-    if (page <= totalPages) {
-      page++;
-    }
-    searchedMedia.value.push(...data.results);
-  },
-  { distance: -50 }
-);
+useInfiniteScroll(el, async () => {
+  const data: any = await getSearchMedia(searchInput.value, page);
+  const totalPages = data.total_pages;
+  if (page <= totalPages) {
+    page++;
+  }
+  searchedMedia.value.push(...data.results);
+});
 
 watch(
   () => searchInput.value,

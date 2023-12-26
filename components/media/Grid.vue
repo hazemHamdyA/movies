@@ -1,5 +1,9 @@
 <template>
-  <div v-for="media in medias" :key="media.id">
+  <NuxtLink
+    v-for="media in medias"
+    :key="media.id"
+    :to="{ path: `/${media.media_type ?? type}/${media.id}` }"
+  >
     <NuxtImg
       v-if="media.poster_path"
       :src="customizePics(media.poster_path)"
@@ -13,6 +17,7 @@
     >
       <Icon name="mdi:magnify-close" class="text-4xl" font-base />
     </div>
+
     <h3 class="font-medium text-lg">{{ media.title ?? media.name }}</h3>
     <div class="flex items-center gap-2">
       <StarRate :value="media.vote_average" class="w25" />
@@ -20,11 +25,11 @@
         {{ media.vote_average?.toFixed(1) }}
       </p>
     </div>
-  </div>
+  </NuxtLink>
 </template>
 
 <script setup lang="ts">
-defineProps(["medias"]);
+defineProps(["medias", "type"]);
 </script>
 
 <style scoped>

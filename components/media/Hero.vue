@@ -1,5 +1,9 @@
 <template>
-  <div class="relative w-full h-full" v-for="media in [details]" :key="media">
+  <section
+    class="relative w-full h-full"
+    v-for="media in [details]"
+    :key="media"
+  >
     <NuxtImg
       :src="customizePics(media.backdrop_path)"
       :alt="media.title + ' cover'"
@@ -22,18 +26,37 @@
         {{ media.overview }}
       </p>
       <div>
-        <!-- implement vidoe model -->
-        <Button variant="ghost" class="font-medium">
-          <Icon name="lucide:play" mr-2 />
-          Watch Trailer
-        </Button>
+        <AppModal>
+          <template v-slot:trigger>
+            <Button variant="ghost" class="font-medium">
+              <Icon name="lucide:play" mr-2 />
+              Watch Trailer
+            </Button>
+          </template>
+          <template #default>
+            <iframe
+              width="900"
+              height="480"
+              :src="'https://www.youtube.com/embed/' + gettrailer.key"
+              :title="gettrailer.name + '|' + gettrailer.type"
+              frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowfullscreen
+            ></iframe>
+          </template>
+        </AppModal>
       </div>
     </div>
-  </div>
+  </section>
 </template>
 
 <script setup lang="ts">
-defineProps(["details"]);
+const props = defineProps(["details"]);
+
+const gettrailer = computed(() => {
+  const { results } = props.details.videos;
+  return results.find((e: any) => e.type === "Trailer");
+});
 </script>
 
 <style scoped lang="scss">
@@ -58,7 +81,16 @@ defineProps(["details"]);
   width: 60%;
   height: 106%;
   background: transparent
-    linear-gradient(to left, #ffffff00, #000000c7, #000000, #000000, #080808);
+    linear-gradient(
+      to left,
+      #ffffff00,
+      #00000000,
+      #000000,
+      #000000,
+      #00000000,
+      #00000000,
+      #08080800
+    );
 
   & li {
     color: gray;

@@ -6,7 +6,7 @@ export default defineEventHandler(async (event) => {
     baseURL: BASE_URL,
     params: {
       api_key: "b09e98b75b2f91277b94093296b04ee5",
-      language: "en-US",
+      language: "en",
       ...qury,
     },
   });

@@ -1,9 +1,8 @@
 <template>
-  <h1 pl15 text-5xl>ID is {{ route.params.id }}</h1>
+  <div flex gap-12 font-base class="overview"></div>
 </template>
 
 <script setup lang="ts">
-import { useRoute } from "vue-router";
 const route = useRoute();
 </script>
 

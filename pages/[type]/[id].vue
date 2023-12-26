@@ -1,10 +1,12 @@
 <template>
-  <section>
-    <MediaHero :details="firstMediaDetails" />
-  </section>
-  <section bg-base>
-    <MediaDetails :movie="firstMediaDetails" />
-  </section>
+  <div>
+    <section>
+      <MediaHero :details="firstMediaDetails" />
+    </section>
+    <section>
+      <MediaDetails bg-base :movie="firstMediaDetails" />
+    </section>
+  </div>
 </template>
 
 <script setup lang="ts">

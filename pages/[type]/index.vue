@@ -14,17 +14,24 @@
           :media="allPopularMedia?.results"
           :head="chosenMedia ? 'Popular Movies' : 'Popular TV Shows'"
           :type="chosenMedia ? 'movie' : 'tv'"
+          query="popular"
         />
         <Carousel
           :media="topRatedMedia?.results"
           :head="`Top Rated ${chosenMedia ? 'Movies' : 'TV Shows'}`"
           :type="chosenMedia ? 'movie' : 'tv'"
+          query="top_rated"
         />
         <div v-if="chosenMedia">
-          <Carousel :media="upComingMovies?.results" head="Upcoming Movies" />
+          <Carousel
+            :media="upComingMovies?.results"
+            head="Upcoming Movies"
+            query="upcoming"
+          />
           <Carousel
             :media="nowPlayingMovies?.results"
             head="Now Playing Movies"
+            query="now_playing"
           />
         </div>
         <div v-else>
@@ -32,6 +39,7 @@
             :media="airingToday?.results"
             head="TV Shows Airing Today"
             type="tv"
+            query="airing_today"
           />
         </div>
       </asyncWrapper>

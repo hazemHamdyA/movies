@@ -1,22 +1,33 @@
 <script setup lang="ts">
-// defineProps(["media", "head", "type"]);
 defineProps({
   media: {
     type: Object,
   },
-  head: {},
+  head: {
+    type: String,
+    required: true,
+  },
   type: {
     required: false,
     default: "movie",
+  },
+  query: {
+    type: String,
   },
 });
 </script>
 
 <template>
-  <section class="pl-18 bg-gray:5">
+  <section class="pl-18" v-if="media?.length > 0">
     <div class="flex justify-between p-8 items-center">
       <h2 class="text-2xl">{{ head }}</h2>
-      <nuxt-link class="n-link text-lg" to="/">Explore more</nuxt-link>
+
+      <nuxt-link
+        v-if="query"
+        class="n-link text-lg"
+        :to="`/${type}/category/${query}`"
+        >Explore more</nuxt-link
+      >
     </div>
     <ScrollArea class="border rounded-md p-4">
       <div class="flex p-4 space-x-4">
@@ -27,7 +38,9 @@ defineProps({
           :to="{ path: `/${type}/${movie.id}` }"
         >
           <figure class="shrink-0">
-            <div class="overflow-hidden">
+            <div
+              class="overflow-hidden h-[20rem] flex justify-center items-center"
+            >
               <NuxtImg
                 :src="
                   type === 'person'
@@ -36,7 +49,9 @@ defineProps({
                 "
                 :alt="`Photo by ${movie.title}`"
                 class="aspect-[3/4] object-cover"
+                v-if="movie.profile_path || movie.poster_path"
               />
+              <Icon v-else name="line-md:account" class="text-4xl" />
             </div>
           </figure>
           <div>
