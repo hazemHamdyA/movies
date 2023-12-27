@@ -9,6 +9,12 @@ export default defineNuxtConfig({
     "nuxt-icon",
     "@vueuse/nuxt",
   ],
+  app: {
+    head: {
+      charset: "utf-8",
+      viewport: "width=device-width, initial-scale=1",
+    },
+  },
   shadcn: {
     prefix: "",
     componentDir: "./components/ui",

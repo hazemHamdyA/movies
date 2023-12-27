@@ -5,7 +5,14 @@
     :key="media"
   >
     <NuxtImg
+      v-if="media.backdrop_path"
       :src="customizePics(media.backdrop_path)"
+      :alt="media.title + ' cover'"
+      class="img -z-1 object-cover"
+    />
+    <NuxtImg
+      v-else
+      src="https://adaptalux.com/wp-content/uploads/2020/01/Black-background-photography-example.jpg"
       :alt="media.title + ' cover'"
       class="img -z-1 object-cover"
     />
@@ -65,6 +72,7 @@ const gettrailer = computed(() => {
   margin-left: auto;
   filter: contrast(110%);
   height: 20%;
+  // height: 50rem;
 }
 
 .continer {

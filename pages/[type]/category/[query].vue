@@ -3,7 +3,10 @@ import type { MediaType } from "~/types";
 const route = useRoute();
 const el = ref<HTMLElement | null>(null);
 const newMeida: any = reactive([]);
-
+// SEO
+useHead({
+  title: route.params.type === "movie" ? "Movies" : "TV Shows",
+});
 const asyncWrapper = defineComponent({
   async setup(_, ctx) {
     let page = 1;

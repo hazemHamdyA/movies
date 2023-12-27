@@ -1,4 +1,11 @@
-import type { Media, MediaType, PageResult, QueryItem, Movie } from "~/types";
+import type {
+  Media,
+  MediaType,
+  PageResult,
+  QueryItem,
+  Movie,
+  Person,
+} from "~/types";
 
 const customizePics = (
   src: string
@@ -80,7 +87,7 @@ async function getRecommendations({
   return await $fetch(`/api/${type}/${id}/recommendations`);
 }
 
-async function getPerson(id: string | string[]) {
+async function getPerson(id: string | string[]): Promise<Person> {
   return await $fetch(`/api/person/${id}`, {
     params: {
       append_to_response:

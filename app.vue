@@ -1,8 +1,18 @@
 <script>
-/**
- * @TODO: 0) create the one move page
- *        1) implement video triler and make go to the spacefic page
- */
+useHead({
+  htmlAttrs: {
+    lang: "en",
+  },
+  charset: "utf-8",
+  title: "Movies Database",
+  titleTemplate: (titleChunk) => (titleChunk ? `${titleChunk}` : "Movies"),
+  meta: [
+    {
+      name: "description",
+      content: "A TMDB client built with Image to show the potential of it ✨",
+    },
+  ],
+});
 </script>
 <template>
   <NuxtLoadingIndicator />

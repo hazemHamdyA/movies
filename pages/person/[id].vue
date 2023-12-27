@@ -6,21 +6,28 @@
     space-y-32
     class="max-[900px]:pl-4 max-[900px]:px-0"
   >
-    <asyncWrapper v-slot="{ personDetails }">
-      <PersonOverview :details="personDetails" />
-      <PersonInfo :details="personDetails" />
-    </asyncWrapper>
+    <PersonOverview :details="person" />
+    <PersonInfo :details="person" />
+    <!-- </asyncWrapper> -->
   </div>
 </template>
 
 <script setup lang="ts">
 const route = useRoute();
-const asyncWrapper = defineComponent({
-  name: "AsyncWrapper",
-  async setup(_, ctx) {
-    const personDetails = await getPerson(route.params.id);
-    return () => ctx?.slots.default?.({ personDetails });
-  },
+const person = await getPerson(route.params.id);
+const $img = useImage();
+useHead({
+  title: person.name,
+  meta: [
+    { name: "description", content: person.biography || person.name },
+    {
+      property: "og:image",
+      content: $img(`/tmdb${person.profile_path}`, {
+        width: 1200,
+        height: 630,
+      }),
+    },
+  ],
 });
 </script>
 

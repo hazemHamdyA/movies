@@ -2,6 +2,9 @@
 import { useInfiniteScroll } from "@vueuse/core";
 import type { PageResult, Media } from "~/types";
 const searchInput = ref("");
+useHead({
+  title: computed(() => `Search: ${searchInput.value}`),
+});
 const isEnd = ref(false);
 let page = 1;
 /**
