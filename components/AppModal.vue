@@ -9,7 +9,7 @@
     </DialogTrigger>
 
     <DialogContent>
-      <DialogTitle></DialogTitle>
+      <DialogTitle>images</DialogTitle>
       <DialogHeader>
         <DialogDescription relative>
           <div class="media">

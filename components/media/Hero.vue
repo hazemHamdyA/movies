@@ -1,6 +1,6 @@
 <template>
   <section
-    class="relative w-full h-full -z-1"
+    class="relative w-full h-full"
     v-for="media in [details]"
     :key="media"
   >
@@ -79,7 +79,7 @@ const gettrailer = computed(() => {
   border: transparent;
   gap: 1rem;
   width: 60%;
-  height: 110%;
+  height: 106%;
   background: transparent
     linear-gradient(
       to left,
@@ -145,9 +145,6 @@ const gettrailer = computed(() => {
       #000000,
       #000000
     );
-    & button {
-      background-color: rgb(29, 28, 28);
-    }
   }
 }
 
