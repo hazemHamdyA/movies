@@ -30,19 +30,12 @@ const asyncWrapper = defineComponent({
       {{ route.params.query + " " + route.params.type }}s
     </h2>
     <asyncWrapper v-slot="{ media }">
-      <div class="continer">
+      <AutoGrid>
         <MediaGrid :medias="newMeida" :type="route.params.type" />
-      </div>
+      </AutoGrid>
       <div v-if="media.length !== 0" ref="el" class="py-10" />
     </asyncWrapper>
   </section>
 </template>
 
-<style scoped>
-.continer {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
-  padding: 1rem 5rem 1rem 8rem;
-}
-</style>
+<style scoped></style>

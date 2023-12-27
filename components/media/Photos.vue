@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import GridPictures from "./GridPictures.vue";
-
 defineProps(["collection"]);
 </script>
 

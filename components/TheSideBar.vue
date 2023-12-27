@@ -30,6 +30,21 @@ nav {
   top: 0;
   left: 0;
   z-index: 5;
-  height: 50rem;
+  height: 100dvh;
+  overflow-y: hidden;
+}
+
+@media only screen and (max-width: 900px) {
+  nav {
+    flex-direction: row;
+    height: auto;
+    padding: 0.7rem;
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100dvw;
+    justify-content: space-evenly;
+    align-items: center;
+  }
 }
 </style>

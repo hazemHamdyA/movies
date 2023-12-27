@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div
+    class="max-[900px]:space-y-32 max-[650px]:space-y-48 max-[530px]:space-y-64"
+  >
     <section>
       <MediaHero :details="firstMediaDetails" />
     </section>

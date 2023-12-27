@@ -23,7 +23,7 @@ const asyncWrapper = defineComponent({
           <TabsTrigger value="photos" uppercase> photos </TabsTrigger>
         </TabsList>
       </div>
-      <div class="px-36">
+      <div class="px-36 max-[1024px]:px-4">
         <TabsContent value="overview">
           <MediaOverview :movie="movie" />
         </TabsContent>

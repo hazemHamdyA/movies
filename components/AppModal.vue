@@ -9,10 +9,12 @@
     </DialogTrigger>
 
     <DialogContent>
-      <DialogTitle>images</DialogTitle>
+      <DialogTitle></DialogTitle>
       <DialogHeader>
         <DialogDescription relative>
-          <slot name="default" />
+          <div class="media">
+            <slot name="default" />
+          </div>
           <DialogClose>
             <Icon name="i-carbon-close" class="icon" n-link />
           </DialogClose>
@@ -31,5 +33,14 @@
   background-color: rgba(0, 0, 0, 0.24);
   border-radius: 50%;
   cursor: pointer;
+}
+
+@media only screen and (max-width: 1024px) {
+  .media {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 10rem;
+  }
 }
 </style>

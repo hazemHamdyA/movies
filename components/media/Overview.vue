@@ -16,14 +16,9 @@ const externalIds = computed(() => ({
 
 const directorName = (arr: any) => {
   const { crew } = arr;
-  const directorName = crew?.find(
-    (e: { job: string }) => e.job === "Director"
-  )?.name;
-  return directorName;
-};
+  const directorName = crew?.find((e: { job: string }) => e.job === "Director");
 
-const getGenres = (mediaGeners: any) => {
-  return mediaGeners.map((e: any) => e.name);
+  return directorName;
 };
 
 const getCompanies = (companys: any) => {
@@ -32,14 +27,14 @@ const getCompanies = (companys: any) => {
 </script>
 
 <template>
-  <div flex gap-12 font-base class="overview">
-    <div flex-shrink-0>
+  <div flex gap-12 font-base>
+    <div flex-shrink-0 class="img--wrapper">
       <NuxtImg :src="customizePics(movie.poster_path)" />
     </div>
-    <div flex="~ col justify-center" gap-10>
+    <div flex="~ col justify-center" gap-10 class="continer">
       <h3 class="text-4xl text-white font-semibold">Storyline</h3>
       <p class="text-white text-lg">{{ movie.overview }}</p>
-      <ul grid="~ cols-2" font-500>
+      <ul grid="~ cols-2" class="max-[900px]:grid-cols-1" font-500>
         <li v-show="formaDate(movie.release_date)">
           <div flex items-center gap-4 mb-5>
             <p>Released</p>
@@ -55,9 +50,11 @@ const getCompanies = (companys: any) => {
         <li v-show="directorName(movie.credits)">
           <div flex items-center gap-4 mb-5>
             <p>Directo</p>
-            <NuxtLink v-show="directorName(movie.credits)" to="/">{{
-              directorName(movie.credits)
-            }}</NuxtLink>
+            <NuxtLink
+              v-show="directorName(movie.credits)?.name"
+              :to="`/person/${directorName(movie.credits)?.id}`"
+              >{{ directorName(movie.credits)?.name }}</NuxtLink
+            >
           </div>
         </li>
         <li v-show="movie.budget">
@@ -75,9 +72,11 @@ const getCompanies = (companys: any) => {
         <li>
           <div flex items-center gap-4 mb-5>
             <p>Genre</p>
-            <ul flex gap-2>
-              <li v-for="gen in getGenres(movie.genres)" :key="gen.name">
-                <NuxtLink to="/">{{ gen }}</NuxtLink>
+            <ul flex gap-2 class="">
+              <li v-for="gen in movie.genres" :key="gen.name">
+                <NuxtLink :to="`/genre/${gen.id}/${$route.params.type}`">{{
+                  gen.name
+                }}</NuxtLink>
               </li>
             </ul>
           </div>
@@ -127,5 +126,25 @@ img {
 
 li p:nth-child(1) {
   color: rgb(230, 224, 224);
+}
+
+@media only screen and (max-width: 650px) {
+  .continer {
+    gap: 1.5rem;
+
+    & h3 {
+      font-size: 1.5rem;
+    }
+
+    & p {
+      font-size: 1rem;
+    }
+  }
+  .img--wrapper {
+    display: none;
+    & img {
+      height: 100%;
+    }
+  }
 }
 </style>

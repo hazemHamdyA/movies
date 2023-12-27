@@ -1,6 +1,6 @@
 <template>
   <section
-    class="relative w-full h-full"
+    class="relative w-full h-full -z-1"
     v-for="media in [details]"
     :key="media"
   >
@@ -64,7 +64,7 @@ const gettrailer = computed(() => {
   width: 64%;
   margin-left: auto;
   filter: contrast(110%);
-  height: 34rem;
+  height: 20%;
 }
 
 .continer {
@@ -79,7 +79,7 @@ const gettrailer = computed(() => {
   border: transparent;
   gap: 1rem;
   width: 60%;
-  height: 106%;
+  height: 110%;
   background: transparent
     linear-gradient(
       to left,
@@ -96,6 +96,92 @@ const gettrailer = computed(() => {
     color: gray;
     font-size: large;
     list-style: disc;
+  }
+}
+
+@media only screen and (max-width: 1300px) {
+  .continer {
+    top: -5rem;
+    height: 130%;
+    left: -1rem;
+  }
+}
+
+@media only screen and (max-width: 1030px) {
+  .continer {
+    top: -8rem;
+    left: -2rem;
+    height: 140%;
+
+    & h1 {
+      font-size: xx-large;
+    }
+    & p {
+      font-size: 1rem;
+      color: #666666;
+    }
+
+    & li {
+      font-size: small;
+    }
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .img {
+    width: 100%;
+  }
+  .continer {
+    padding: 0 4rem;
+    background: transparent;
+    bottom: auto;
+    top: 15rem;
+    width: 104.8%;
+    height: 17rem;
+    background: linear-gradient(
+      to bottom,
+      #ffffff00,
+      #000000,
+      #000000,
+      #000000
+    );
+    & button {
+      background-color: rgb(29, 28, 28);
+    }
+  }
+}
+
+@media only screen and (max-width: 650px) {
+  .img {
+    height: 100%;
+  }
+
+  .continer {
+    & h1 {
+      font-size: 1.5rem;
+    }
+    & p {
+      font-size: 0.8rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .continer {
+    align-items: center;
+
+    & h1 {
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    & p {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+    & li {
+      font-size: 0.6rem;
+    }
   }
 }
 </style>

@@ -5,7 +5,12 @@ const modalOpen = ref(false);
 </script>
 
 <template>
-  <div grid="~ cols-3" gap4 mt-8>
+  <div
+    grid="~ cols-3"
+    gap4
+    mt-8
+    class="max-[650px]:grid-cols-2 max-[450px]:grid-cols-1"
+  >
     <div
       v-for="vidoe in videos"
       :key="vidoe.id"
@@ -24,8 +29,7 @@ const modalOpen = ref(false);
         </template>
         <template #default>
           <iframe
-            width="900"
-            height="480"
+            class="w-[900px] h-[480px]"
             :src="'https://www.youtube.com/embed/' + vidoe.key"
             :title="vidoe.name + '|' + vidoe.type"
             frameborder="0"

@@ -8,6 +8,7 @@ defineProps({
     required: true,
   },
   type: {
+    type: String,
     required: false,
     default: "movie",
   },
@@ -18,7 +19,7 @@ defineProps({
 </script>
 
 <template>
-  <section class="pl-18" v-if="media?.length > 0">
+  <section class="pl-18 max-[900px]:pl-4" v-if="media?.length > 0">
     <div class="flex justify-between p-8 items-center">
       <h2 class="text-2xl">{{ head }}</h2>
 

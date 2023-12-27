@@ -127,3 +127,9 @@ export interface QueryItem {
 export interface Credits {
   cast: Media[];
 }
+
+export interface Params {
+  type?: MediaType;
+  id?: string;
+  page?: number;
+}

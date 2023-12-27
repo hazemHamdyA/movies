@@ -1,4 +1,4 @@
-import type { MediaType } from "~/types";
+import type { MediaType, Params } from "~/types";
 
 const customizePics = (
   src: string
@@ -77,8 +77,27 @@ async function getRecommendations({
   return await $fetch(`/api/${type}/${id}/recommendations`);
 }
 
-async function fetchTMDB(params: { type: string; query: string }, page = 1) {
-  return await $fetch(`/api/${params.type}/${params.query}`, {
+async function getPerson(id: string | string[]) {
+  return await $fetch(`/api/person/${id}`, {
+    params: {
+      append_to_response:
+        "videos,credits,images,external_ids,release_dates,combined_credits",
+    },
+  });
+}
+
+async function fetchTMDB(
+  { type, query }: { type: MediaType; query: string | string[] },
+  page = 1
+) {
+  return await $fetch(`/api/${type}/${query}`, {
+    params: {
+      page,
+    },
+  });
+}
+async function getMediaByGenre({ type, id, page = 1 }: Params) {
+  return await $fetch(`/api/${type}/${id}/similar`, {
     params: {
       page,
     },
@@ -100,4 +119,6 @@ export {
   formaDate,
   getRecommendations,
   fetchTMDB,
+  getPerson,
+  getMediaByGenre,
 };
