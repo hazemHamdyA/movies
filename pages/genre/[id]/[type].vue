@@ -12,7 +12,7 @@ const asyncWrapper = defineComponent({
     const media = await getMediaByGenre({ ...route.params, page });
 
     useInfiniteScroll(el, async () => {
-      const data: any = await getMediaByGenre({ ...route.params, page });
+      const data = await getMediaByGenre({ ...route.params, page });
       const totalPages = data.total_pages;
       if (page <= totalPages) {
         page++;

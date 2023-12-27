@@ -14,15 +14,18 @@ const externalIds = computed(() => ({
   homepage: props.movie.homepage,
 }));
 
-const directorName = (arr: any) => {
+const directorName = (arr: {
+  crew?: [];
+}): { job?: string; name?: string; id: number } | undefined => {
   const { crew } = arr;
-  const directorName = crew?.find((e: { job: string }) => e.job === "Director");
+  const directorName: { job?: string; name?: string; id: number } | undefined =
+    crew?.find((e: { job?: string; name: string }) => e.job === "Director");
 
   return directorName;
 };
 
-const getCompanies = (companys: any) => {
-  return companys.map((e: any) => e.name).join(", ");
+const getCompanies = (companys: []) => {
+  return companys.map((e: { name: string }) => e.name).join(", ");
 };
 </script>
 

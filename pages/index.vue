@@ -12,10 +12,12 @@
 </template>
 
 <script setup lang="ts">
-const allPopularMovies: any = await getPopular("movie"); // get all popular movie
-const firstMovieID = allPopularMovies.results[0].id; // get id of the first movie
-const firstMovieDetails = await getMediaById("movie", firstMovieID); // get details of that movie
-const allPopularTVs: any = await getPopular("tv"); // get all popular TVs
+import type { Media, PageResult, Movie } from "~/types";
+
+const allPopularMovies: PageResult<Media> = await getPopular("movie"); // get all popular movie
+const firstMovieID: string = allPopularMovies.results[0].id; // get id of the first movie
+const firstMovieDetails: Movie = await getMediaById("movie", firstMovieID); // get details of that movie
+const allPopularTVs: PageResult<Media> = await getPopular("tv"); // get all popular TVs
 </script>
 
 <style scoped></style>

@@ -56,7 +56,7 @@ import {
   getNowPlaying,
   getAiringToday,
 } from "~/composables/tmdb";
-import type { MediaType } from "~/types";
+import type { MediaType, PageResult, Media, Movie } from "~/types";
 
 const route = useRoute();
 
@@ -66,9 +66,9 @@ const asyncWrapper = defineComponent({
   async setup(_, ctx) {
     const topRatedMedia = await getTopRated(route.params.type as MediaType);
 
-    let airingToday: any;
-    let upComingMovies: any;
-    let nowPlayingMovies: any;
+    let airingToday: PageResult<Media>;
+    let upComingMovies: PageResult<Media>;
+    let nowPlayingMovies: PageResult<Media>;
 
     if (route.params.type === "movie") {
       upComingMovies = await getUpcoming(route.params.type as MediaType);
@@ -85,9 +85,11 @@ const asyncWrapper = defineComponent({
       });
   },
 });
-const allPopularMedia: any = await getPopular(route.params.type as MediaType);
+const allPopularMedia: PageResult<Media> = await getPopular(
+  route.params.type as MediaType
+);
 const firstMeidaID: string = allPopularMedia.results[0].id;
-const firstMediaDetails = await getMediaById(
+const firstMediaDetails: Movie = await getMediaById(
   route.params.type as MediaType,
   firstMeidaID
 );

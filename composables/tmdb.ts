@@ -1,4 +1,4 @@
-import type { MediaType, Params } from "~/types";
+import type { Media, MediaType, PageResult, QueryItem, Movie } from "~/types";
 
 const customizePics = (
   src: string
@@ -33,31 +33,34 @@ const formaDate = (date: Date) => {
   return new Intl.DateTimeFormat("en-US").format(oldDate);
 };
 
-async function getPopular(type: MediaType) {
+async function getPopular(type: MediaType): Promise<PageResult<Media>> {
   return await $fetch(`/api/${type}/popular`);
 }
 
-async function getTopRated(type: MediaType) {
+async function getTopRated(type: MediaType): Promise<PageResult<Media>> {
   return await $fetch(`/api/${type}/top_rated`);
 }
 
-async function getUpcoming(type: MediaType) {
+async function getUpcoming(type: MediaType): Promise<PageResult<Media>> {
   return await $fetch(`/api/${type}/upcoming`);
 }
 
-async function getNowPlaying(type: MediaType) {
+async function getNowPlaying(type: MediaType): Promise<PageResult<Media>> {
   return await $fetch(`/api/${type}/now_playing`);
 }
 
-async function getAiringToday(type: MediaType) {
+async function getAiringToday(type: MediaType): Promise<PageResult<Media>> {
   return await $fetch(`/api/${type}/airing_today`);
 }
 
-async function getSearchMedia(keyword: string, page = 1) {
+async function getSearchMedia(
+  keyword: string,
+  page = 1
+): Promise<PageResult<Media>> {
   return await $fetch(`/api/search/multi?query=${keyword}&page=${page}`);
 }
 
-async function getMediaById(type: MediaType, id: string) {
+async function getMediaById(type: MediaType, id: string): Promise<Movie> {
   return await $fetch(`/api/${type}/${id}`, {
     params: {
       // get extra data along with request
@@ -89,14 +92,18 @@ async function getPerson(id: string | string[]) {
 async function fetchTMDB(
   { type, query }: { type: MediaType; query: string | string[] },
   page = 1
-) {
+): Promise<PageResult<Media>> {
   return await $fetch(`/api/${type}/${query}`, {
     params: {
       page,
     },
   });
 }
-async function getMediaByGenre({ type, id, page = 1 }: Params) {
+async function getMediaByGenre({
+  type,
+  id,
+  page = 1,
+}: QueryItem): Promise<PageResult<Media>> {
   return await $fetch(`/api/${type}/${id}/similar`, {
     params: {
       page,

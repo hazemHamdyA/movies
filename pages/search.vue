@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useInfiniteScroll } from "@vueuse/core";
+import type { PageResult, Media } from "~/types";
 const searchInput = ref("");
 const isEnd = ref(false);
 let page = 1;
@@ -7,21 +8,21 @@ let page = 1;
  * @NOTE: here we have to create array 'object' with ref instead of reactive to can reset it
  */
 const el = ref<HTMLElement | null>(null);
-const searchedMedia: any = ref([]);
+const searchedMedia: { value: Media | [] } = ref([]);
 
 const search = async () => {
   // reset array
-  if (searchedMedia.value.length) {
+  if (searchedMedia.value?.length) {
     searchedMedia.value = [];
   }
-  const data: any = await getSearchMedia(searchInput.value);
+  const data: PageResult<Media> = await getSearchMedia(searchInput.value);
   searchedMedia.value.push(...data.results);
   isEnd.value = true;
 };
 const debouncedFn = useDebounceFn(search, 200);
 
 useInfiniteScroll(el, async () => {
-  const data: any = await getSearchMedia(searchInput.value, page);
+  const data: PageResult<Media> = await getSearchMedia(searchInput.value, page);
   const totalPages = data.total_pages;
   if (page <= totalPages) {
     page++;

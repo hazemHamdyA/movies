@@ -1,9 +1,9 @@
 export type MediaType = "movie" | "tv";
 
 export interface Media {
-  adult: boolean;
-  backdrop_path: string;
-  genre_ids: number[];
+  adult?: boolean;
+  backdrop_path?: string;
+  genre_ids?: number[];
   id: string;
   original_language: string;
   original_title: string;
@@ -40,6 +40,9 @@ export interface Media {
   external_ids?: ExternalIds;
   // cast
   character?: string;
+  // methods
+  push?: any;
+  length?: number;
 }
 
 export interface Person {
@@ -118,18 +121,53 @@ export interface Genre {
   name: string;
 }
 
-export interface QueryItem {
-  type: MediaType;
-  title: string;
-  query: string;
-}
+// export interface QueryItem {
+//   type: MediaType;
+//   title: string;
+//   query: string;
+// }
 
 export interface Credits {
   cast: Media[];
 }
 
-export interface Params {
+export interface QueryItem {
   type?: MediaType;
   id?: string;
   page?: number;
+}
+
+export interface Movie {
+  adult: boolean;
+  backdrop_path: string;
+  belongs_to_collection: object;
+  budget: number;
+  credits: Credits;
+  external_ids: ExternalIds;
+  genres: Genre;
+  homepage?: string;
+  id: number;
+  images: Image;
+  original_language: string;
+  original_title: string;
+  overview: string;
+  popularity: number;
+  poster_path: string;
+  production_companies: any[];
+  production_countries: any[];
+  release_date: string;
+  revenue: number;
+  runtime: number;
+  spoken_languages: any[];
+  status: string;
+  Released: string;
+  title: string;
+  video: boolean;
+
+  videos: {
+    results: Video[];
+  };
+
+  vote_average: number;
+  vote_count: number;
 }
