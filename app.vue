@@ -1,4 +1,7 @@
 <script>
+/**
+ * @TODO: adding transitions & loading spinners
+ */
 useHead({
   htmlAttrs: {
     lang: "en",
